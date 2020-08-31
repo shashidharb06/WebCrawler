@@ -16,7 +16,7 @@ public class App {
         switch (args.length) {
             case 0:
                 printProgramBrief(0);
-                log.info("Please enter URL");
+                log.info("Please enter URL to scan");
                 Scanner in = new Scanner(System.in);
                 url = in.nextLine();
                 log.info("Please enter value of 'N'");
