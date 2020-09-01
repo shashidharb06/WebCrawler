@@ -6,16 +6,19 @@ import static org.junit.Assert.assertTrue;
 import com.web.crawler.model.WordNode;
 import com.web.crawler.wc.WordCounter;
 import java.util.List;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.slf4j.LoggerFactory;
 
+@FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class AppTest
 {
 
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(AppTest.class);
 
     @Test
-    public void errorForInvalidURL()
+    public void failForInvalidURL()
     {
         assertFalse( WordCounter.parseAndCount("abcd",10));
         assertFalse( WordCounter.parseAndCount("http://abcd.abcd",10));
@@ -35,6 +38,20 @@ public class AppTest
         assertTrue(wordPairMap.get(0).getWord().equalsIgnoreCase("example,needs") && wordPairMap.get(0).getFrequency()==2);
 
         log.info("Test case - 'passWordCounter' - Passed");
+    }
+
+    @Test
+    public void passWebPageParser()
+    {
+        assertTrue(WordCounter.parseAndCount("https://github.com/shashidharb06/WebCrawler/edit/master/README.md", 2));
+        log.info("Test case - 'passWebPageParser' - Passed");
+    }
+
+    @Test
+    public void failForNumberValidation()
+    {
+        assertFalse(WordCounter.parseAndCount("https://github.com/shashidharb06/WebCrawler/edit/master/README.md", -10));
+        log.info("Test case - 'failForNumberValidation' - Passed");
     }
 
 }
