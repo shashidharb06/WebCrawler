@@ -16,8 +16,8 @@ public class WordCounter {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(WordCounter.class);
     private static Map<String, WordNode> wordFreqMap;
     private static Map<String, WordNode> wordPairMap;
-    private static int wc = 0;
-    private static int n =10;
+    private static int wordCount = 0;
+    private static int n = 10;
 
     public static Map<String, WordNode> getWordFreqMap() {
         return wordFreqMap;
@@ -28,10 +28,17 @@ public class WordCounter {
     }
 
     public static boolean parseAndCount(String url, int numberOfWords) {
-        n =numberOfWords;
+        n = numberOfWords;
 
-        if(!HtmlUtil.isValidUrl(url)){
-            log.error("Invalid URL '{}', please enter valid URL", url);
+        if(!validateMinMaxOfN(numberOfWords)){
+            log.error("Please enter a valid number between 1-100");
+            return false;
+        }
+
+        if (!HtmlUtil.isValidUrl(url)) {
+            log.error(
+                "Invalid URL '{}', please enter valid URL (Eg- http(s)://www.site-to-visi.com/)",
+                url);
             return false;
         }
 
@@ -64,12 +71,12 @@ public class WordCounter {
                 continue;
             }
 
-            wc++;
-            endOfSentence=false;
+            wordCount++;
+            endOfSentence = false;
 
-            if(word.endsWith(".")){
-                endOfSentence=true;
-                word = word.substring(0,word.length()-1);
+            if (word.endsWith(".")) {
+                endOfSentence = true;
+                word = word.substring(0, word.length() - 1);
             }
 
             //Update frequencies against the word in a map
@@ -87,8 +94,8 @@ public class WordCounter {
                 prevWord = word;
             } else {
                 //Again start from the first word of the sentence
-                if(prevWord.equals("")){
-                    prevWord=word;
+                if (prevWord.equals("")) {
+                    prevWord = word;
                     continue;
                 }
 
@@ -105,30 +112,30 @@ public class WordCounter {
                 prevWord = word;
 
                 //Re-initialize if it's end of sentence
-                if(endOfSentence){
-                    prevWord="";
+                if (endOfSentence) {
+                    prevWord = "";
                 }
             }
         }
     }
 
-    public static void printSummary(String url){
+    public static void printSummary(String url) {
         log.info("{} most frequent words in webpage '{}'", n, url);
-        for(WordNode node : getNFreqElements(wordFreqMap)){
+        for (WordNode node : getNFreqElements(wordFreqMap)) {
             log.info("{} : {}", node.getWord(), node.getFrequency());
         }
 
         log.info("---------------------------------------------------------------");
 
         log.info("{} most frequent word pair present in webpage '{}'", n, url);
-        for(WordNode node : getNFreqElements(wordPairMap)){
+        for (WordNode node : getNFreqElements(wordPairMap)) {
             log.info("{} : {}", node.getWord(), node.getFrequency());
         }
 
         log.info("--------------------------Summary------------------------------");
-        log.info("Total words present : {}",wc);
-        log.info("Total unique words found : {}",wordFreqMap.size());
-        log.info("Total word pairs found : {}",wordPairMap.size());
+        log.info("Total words present : {}", wordCount);
+        log.info("Total unique words found : {}", wordFreqMap.size());
+        log.info("Total word pairs found : {}", wordPairMap.size());
         log.info("---------------------------------------------------------------");
     }
 
@@ -153,5 +160,9 @@ public class WordCounter {
         }
 
         return tempList1;
+    }
+
+    public static boolean validateMinMaxOfN(int numberOfWords){
+        return (numberOfWords>0 && numberOfWords<=100);
     }
 }
