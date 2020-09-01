@@ -15,9 +15,10 @@ Below are the ways to run the program
 1. Execute via interactive console input:
       java -jar web-crawler-1.0.jar
 2. Execute via line arguments:
-      a) java -jar web-crawler-1.0.jar <url> <'N' number of top frequent words/word pair - Optional>
-      b) java -jar web-crawler-1.0.jar <url> [If 'N' is not provided during execution, 10 is taken as default]
-  
+      -> java -jar web-crawler-1.0.jar <url> <number>
+            url                     : URL of the website [Eg: http(s)://www.google.com]
+            number(Optional)        : Number of top frequent words/word pair, if not provided by default 10 is considered.
+        
   
 Limitations:
 1. Does not work with JavaScript loaded content of the page.
