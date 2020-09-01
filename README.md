@@ -6,7 +6,9 @@ This program scans through a given webpage,  and display the top 'N' frequent wo
 Building the project
 ====================
 Run below command to build :
-```mvn assembly:assembly -DdescriptorId=jar-with-dependencies```
+```
+mvn assembly:assembly -DdescriptorId=jar-with-dependencies
+```
 
 
 Running the project
