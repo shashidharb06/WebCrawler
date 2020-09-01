@@ -13,11 +13,15 @@ Running the project
 ===================
 Below are the ways to run the program
 1. Execute via interactive console input:
-      ``` java -jar web-crawler-1.0.jar ```
+      ``` 
+      java -jar web-crawler-1.0.jar 
+      ```
 2. Execute via line arguments:
-      ```-> java -jar web-crawler-1.0.jar <url> <number>
+      ```
+      -> java -jar web-crawler-1.0.jar <url> <number>
             url                     : URL of the website [Eg: http(s)://www.google.com]
-            number(Optional)        : Number of top frequent words/word pair, if not provided by default 10 is considered.```
+            number(Optional)        : Number of top frequent words/word pair, if not provided by default 10 is considered.
+      ```
         
   
 # Limitations:
